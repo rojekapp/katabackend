@@ -100,7 +100,7 @@ await axios(config)
      
      axios(config)
      .then(function (response) {
-       response(JSON.stringify(response.data));
+       res.send(JSON.stringify(response.data));
      })
      .catch(function (error) {
        console.log(error);
