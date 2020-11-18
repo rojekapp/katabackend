@@ -107,9 +107,7 @@ app.get('/cek', async (req, res) => {
 })
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/tenant', tenantRouter);
-app.use('/cashier', cashierRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
