@@ -260,4 +260,48 @@ await axios(config)
        });
       res.json(hasil)
   })
+
+  router.post('/sentiment', async (req,res)=>{
+      text = req.body.text;
+      const language = require('@google-cloud/language');
+
+// Creates a client
+const client = new language.LanguageServiceClient();
+
+/**
+ * TODO(developer): Uncomment the following line to run this code.
+ */
+// const text = 'Your text to analyze, e.g. Hello, world!';
+
+// Prepares a document, representing the provided text
+const document = {
+  content: text,
+  type: 'PLAIN_TEXT',
+};
+
+// Detects the sentiment of the document
+const [result] = await client.analyzeSentiment({document});
+
+const sentiment = result.documentSentiment;
+if(sentiment.score > 0.5){
+  res.send("very positive")
+}else if(sentiment.score < 0.5 && sentiment.score > 0){
+  res.send("positive")
+}else if(sentiment.score == 0){
+  res.send("neutral")
+}else if(sentiment.score > -0.5 && sentiment.score < 0){
+  res.send("negative")
+}else{
+  res.send("very negative")
+}
+
+const sentences = result.sentences;
+sentences.forEach(sentence => {
+  console.log(`Sentence: ${sentence.text.content}`);
+  console.log(`  Score: ${sentence.sentiment.score}`);
+  console.log(`  Magnitude: ${sentence.sentiment.magnitude}`);
+});
+
+
+  });
 module.exports = router;
