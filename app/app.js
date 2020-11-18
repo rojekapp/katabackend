@@ -12,9 +12,7 @@ var cors = require('cors')
 const dbConfig = require('./dbConfig');
 const adminConfig = require('./dbAdmin');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var tenantRouter = require('./routes/tenant.js');
-var cashierRouter = require('./routes/cashier.js');
+
 var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 require('dotenv').config()
