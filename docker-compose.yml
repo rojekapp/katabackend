@@ -3,7 +3,6 @@ services:
   nodejs:
     build: ./app
     image: amakundu/nodejs-mysql-app
-    env_file: ./app/.env
     networks:
       - frontend
       - backend

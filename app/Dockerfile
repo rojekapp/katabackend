@@ -4,6 +4,7 @@ WORKDIR /dev_app
 
 COPY ./package.json .
 COPY ./package-lock.json .
+COPY ./env.json ../
 
 RUN npm install -g
 RUN npm ci

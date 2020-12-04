@@ -31,7 +31,7 @@ var config = {
 await axios(config)
 .then(function (response) {
   value = response.data.result;
-  console.log(value)
+
   kata = value.kata;
   eztap = value.eztap;
   sentiment = value.sentiment;
@@ -39,10 +39,13 @@ await axios(config)
   var currency = "tidak"
   var stats = ""
   for(var i=0;i<kata.length;i++){
+ 
     if(kata[i].label == "PERSON"){
       pep.nama = kata[i].value
+      
     }else if(kata[i].label == "LOCATION"){
       pep.lokasi = kata[i].value
+      
     }else if(kata[i].label == "PHONE"){
       pep.phone = kata[i].value
     }else if(kata[i].label == "CURRENCY"){
@@ -55,8 +58,10 @@ await axios(config)
     }
 
   }
-  pep.harga = convert(pep.harga,stats)
-  res.send(pep)
+  
+
+  console.log(kata)
+  res.json(pep)
 })
 .catch(function (error) {
  res.send(error);
@@ -65,12 +70,13 @@ await axios(config)
   function rupiah(rupiah)
 {
 	return parseInt(rupiah.replace(/[^0-9]/g, ''), 10);
-} function number(rupiah)
+} 
+function number(rupiah)
 {
 	return parseInt(rupiah.replace('.', ''), 10);
 }
 
-  function convert(beb,stats){
+  function converts(beb,stats){
     if(stats == "currency"){
       return rupiah(beb)
     }else{
@@ -304,4 +310,8 @@ sentences.forEach(sentence => {
 
 
   });
+  router.post('/auto', async (req,res)=>{
+    
+  });
+
 module.exports = router;
