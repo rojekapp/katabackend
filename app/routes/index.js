@@ -38,6 +38,7 @@ await axios(config)
   pep = {}
   var currency = "tidak"
   var stats = ""
+  pep.harga = 0;
   for(var i=0;i<kata.length;i++){
  
     if(kata[i].label == "PERSON"){
@@ -60,7 +61,7 @@ await axios(config)
   }
   
 
-  console.log(kata)
+  pep.harga = converts(pep.harga,stats)
   res.json(pep)
 })
 .catch(function (error) {
@@ -79,8 +80,10 @@ function number(rupiah)
   function converts(beb,stats){
     if(stats == "currency"){
       return rupiah(beb)
-    }else{
+    }else if(stats == "number"){
       return number(beb)
+    }else{
+      return beb
     }
   }
   router.post('/ongkir', async (req,res)=>{
